@@ -50,22 +50,38 @@ export default {
     };
   },
   methods: {
+    // 使用 action 辅助函数
+    // 映射 this.getProductions() 为 this.$store.dispatch('production/getProductions')
     ...mapActions('production', ['getProductions']),
+    // 使用 mutation 辅助函数
+    // 映射 this.addToCarts() 为 this.$store.commit('cart/addToCarts')
     ...mapMutations('cart', ['addToCarts']),
+    // 添加商品到购物车
     addCart(item, index) {
       let count = this.nums[index];
+      // 将商品数量置为1
       this.nums.splice(index, 1, 1);
+      // 以载荷方式提交
       this.addToCarts({ ...item, count });
+    },
+    // 初始化商品数据
+    initData() {
+      // 获取商品列表数据
+      this.getProductions();
+      // 初始化商品步进器数值
+      this.productions.forEach(() => this.nums.push(1));
     },
   },
   created() {
-    this.getProductions();
-    this.productions.forEach(() => this.nums.push(1));
+    this.initData();
   },
   mounted() {},
   computed: {
+    // 使用 state 辅助函数
+    // 映射 this.productions 为 this.$store.state.production.productions
     ...mapState('production', ['productions']),
-    ...mapState('cart', ['productionsCart']),
+    // 使用 getter 辅助函数
+    // 映射 this.totalCount 为 this.$store.getters['cart/totalCount']
     ...mapGetters('cart', ['totalCount']),
   },
 };

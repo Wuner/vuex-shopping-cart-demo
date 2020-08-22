@@ -12,7 +12,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取单独打包css文件
 const portfinder = require('portfinder');
 
-const HOST = process.env.HOST;
+const HOST = process.env.HOST || config.local.host;
 const PORT = process.env.PORT && Number(process.env.PORT);
 
 const localWebpackConfig = merge.smartStrategy({
@@ -34,7 +34,7 @@ const localWebpackConfig = merge.smartStrategy({
     // 一切服务都启用gzip 压缩：
     compress: true,
     // 指定使用一个 host。默认是 localhost
-    host: HOST || config.local.host,
+    host: HOST,
     // 指定要监听请求的端口号
     port: PORT || config.local.port,
     // local服务器自动打开浏览器。
@@ -83,6 +83,7 @@ const localWebpackConfig = merge.smartStrategy({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(MODE),
+        HOST: JSON.stringify(HOST),
       },
     }),
     new CopyWebpackPlugin([

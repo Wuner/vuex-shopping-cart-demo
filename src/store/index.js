@@ -16,6 +16,7 @@ const myPlugin = store => {
   store.subscribe((mutation, state) => {
     // 每次 mutation 之后调用
     // mutation 的格式为 { type, payload }
+    // 缓存cart模块状态
     mutation.type.startsWith('cart/') &&
       Local.set('productionsCart', state.cart.productionsCart);
   });
@@ -27,15 +28,18 @@ const mutations = {};
 const actions = {};
 
 const store = new Vuex.Store({
+  // 非生产环境添加严格模式
   strict: process.env.NODE_ENV !== 'production',
   state,
   getters,
   mutations,
   actions,
+  // 模块
   modules: {
     production,
     cart,
   },
+  // 插件
   plugins: [myPlugin],
 });
 

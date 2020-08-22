@@ -67,12 +67,17 @@ export default {
     return {};
   },
   methods: {
+    // 使用 mutation 辅助函数
+    // 映射 this.updateProduction() 为 this.$store.commit('cart/updateProduction')
+    // 映射 this.updateProductionChecked() 为 this.$store.commit('cart/updateProductionChecked')
+    // 映射 this.removeFromCarts() 为 this.$store.commit('cart/removeFromCarts')
     ...mapMutations('cart', [
       'updateProduction',
       'updateProductionChecked',
       'removeFromCarts',
     ]),
     onSubmit() {},
+    // 监听步进器数据改变，更新购物车中的商品数据
     onChange(count, id) {
       typeof count === 'number' && this.updateProduction({ count, id });
     },
@@ -80,7 +85,13 @@ export default {
   created() {},
   mounted() {},
   computed: {
+    // 使用 state 辅助函数
+    // 映射 this.productionsCart 为 this.$store.state.cart.productionsCart
     ...mapState('cart', ['productionsCart']),
+    // 使用 getter 辅助函数
+    // 映射 this.isAllChecked 为 this.$store.getters['cart/isAllChecked']
+    // 映射 this.checkedCount 为 this.$store.getters['cart/checkedCount']
+    // 映射 this.checkedPrice 为 this.$store.getters['cart/checkedPrice']
     ...mapGetters('cart', ['isAllChecked', 'checkedCount', 'checkedPrice']),
   },
 };

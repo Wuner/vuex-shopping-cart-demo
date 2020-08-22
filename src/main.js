@@ -14,6 +14,12 @@ import './utils/local';
 
 Vue.prototype.$http = http; // 引入前后端交互工具
 
+router.beforeEach((to, form, next) => {
+  // 获取路由信息里设置的title，赋值到document title
+  to.meta.title && (document.title = to.meta.title);
+  next();
+});
+
 // 开始创建Vue实例
 new Vue({
   el: '#app',

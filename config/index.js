@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-
+const getIPAddress = require('../src/utils/getIPAddress');
 module.exports = {
   // 本地开发参数配置
   local: {
@@ -12,18 +12,12 @@ module.exports = {
      */
     staticAssetsDirectory: 'static',
     assetsPublicPath: '/', // 相对文件路径
-    proxyTable: {
-      'api/': {
-        target: 'http://127.0.0.1:3000/',
-        changeOrigin: true,
-        logLevel: 'debug',
-      },
-    },
+    proxyTable: {},
     /**
      * !!! 如果你是移动端开发，想在手机上访问本地电脑，那么请设置 host 为 0.0.0.0，
      * 你在手机端就可以用电脑IP地址访问了。
      */
-    host: '127.0.0.1', // 为了方便别人访问，请设置0.0.0.0
+    host: getIPAddress(), // 为了方便别人访问，请设置0.0.0.0
     port: '8000', // 端口号
     autoOpenBrowser: true, // 是否自动打开浏览器
     errorOverlay: true, // 浏览器错误提示遮罩层

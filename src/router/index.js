@@ -13,11 +13,17 @@ let router = new Router({
       path: '/',
       name: 'Home',
       component: Home,
+      meta: {
+        title: '首页',
+      },
     },
     {
       path: '/cart',
       name: 'Cart',
       component: Cart,
+      meta: {
+        title: '购物车',
+      },
     },
   ],
 });
